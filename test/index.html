@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf8'>
+	<meta name='viewport' content='width=device-width'>
+	<title>Test the form!</title>
+	<link rel='stylesheet' href='build/SimpleForm.css'>
+</head>
+<body>
+	<script src='build/SimpleForm.js'></script>
+	<script>
+		const app = new SimpleForm({
+			target: document.body,
+			data: {
+				prompt: 'Please ask your question here.',
+				endpoint: 'https://httpbin.org/post',
+			}
+		});
+	</script>
+</body>
+</html>

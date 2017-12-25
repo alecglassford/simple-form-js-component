@@ -1,0 +1,43 @@
+{
+  "name": "simple-form-js-component",
+  "version": "0.1.0",
+  "description": "👷‍♀️ [wip] Basically recreating HTML form sending with Svelte",
+  "keywords": [
+    "svelte",
+    "form",
+    "component"
+  ],
+  "homepage": "https://github.com/alecglassford/simple-form-js-component#readme",
+  "bugs": {
+    "url": "https://github.com/alecglassford/simple-form-js-component/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alecglassford/simple-form-js-component.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Alec Glassford",
+    "email": "glassford@cs.stanford.edu",
+    "url": "https://alecglassford.com"
+  },
+  "files": [
+    "build/*"
+  ],
+  "unpkg": "build/SimpleForm.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "serve test & rollup -c -w",
+    "start": "serve test"
+  },
+  "devDependencies": {
+    "d3-request": "^1.0.6",
+    "rollup": "^0.52.0",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-svelte": "^3.2.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "serve": "^6.4.1"
+  }
+}

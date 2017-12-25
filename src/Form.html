@@ -1,0 +1,64 @@
+{{#if submissionResponse}}
+	<p id="submission-response">{{submissionResponse}}</p>
+{{else}}
+	<h3 id="prompt">{{prompt}}</h3>
+	<textarea id="response" bind:value="userText"></textarea>
+	<button on:click="submit(userText, endpoint)">Send</button>
+{{/if}}
+
+<script>
+	import { request } from 'd3-request';
+
+	const submit = function submitFunc(text, endpoint) {
+		request(endpoint)
+			.header('Content-Type', 'text/plain;charset=UTF-8')
+			.post(text, (err, xhr) => {
+				if (err) this.set({ submissionResponse: 'error 😥' });
+				else this.set({ submissionResponse: xhr.responseText });
+			});
+	};
+
+	export default {
+		methods: {
+			submit,
+		},
+		data() {
+			return {
+				userText: '',
+				submissionResponse: '',
+			};
+		},
+	};
+</script>
+
+<style>
+	textarea, button {
+		display: block;
+		margin: 1em 0;
+		border: 1px solid #ccc;
+		border-radius: 2px;
+		font-family: inherit;
+		font-size: inherit;
+	}
+
+	textarea {
+		width: 100%;
+		max-width: 600px;
+		height: 50vh;
+		min-height: 10em;
+		font-size: 1.2em;
+	}
+
+	button {
+		background-color: #f4f4f4;
+		outline: none;
+	}
+
+	button:active {
+		background-color: #ddd;
+	}
+
+	button:focus {
+		border-color: #666;
+	}
+</style>

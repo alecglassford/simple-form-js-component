@@ -1,8 +1,8 @@
 {{#if receipt}}
-	<p id="submission-response">{{receipt}}</p>
+	<p>{{receipt}}</p>
 {{else}}
-	<h3 id="prompt">{{prompt}}</h3>
-	<textarea id="response" bind:value="userText"></textarea>
+	<h3>{{prompt}}</h3>
+	<textarea bind:value="userText"></textarea>
 	<button on:click="submit(userText, endpoint)">Send</button>
 	{{#if loading}}
 		<div class="loading"></div>
@@ -88,4 +88,8 @@
     0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
   }
+
+	p {
+		margin: 2em;
+	}
 </style>

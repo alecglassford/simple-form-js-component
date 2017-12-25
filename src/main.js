@@ -1,2 +1,2 @@
-import Form from './Form.html';
-export default Form;
+import SimpleForm from './SimpleForm.html';
+export default SimpleForm;

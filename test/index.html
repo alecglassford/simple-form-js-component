@@ -7,10 +7,11 @@
 	<link rel='stylesheet' href='build/SimpleForm.css'>
 </head>
 <body>
+	<div id="main"></div>
 	<script src='build/SimpleForm.js'></script>
 	<script>
 		const app = new SimpleForm({
-			target: document.body,
+			target: document.querySelector('#main'),
 			data: {
 				prompt: 'Please ask your question here.',
 				endpoint: 'https://httpbin.org/post',

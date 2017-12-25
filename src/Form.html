@@ -1,20 +1,24 @@
-{{#if submissionResponse}}
-	<p id="submission-response">{{submissionResponse}}</p>
+{{#if receipt}}
+	<p id="submission-response">{{receipt}}</p>
 {{else}}
 	<h3 id="prompt">{{prompt}}</h3>
 	<textarea id="response" bind:value="userText"></textarea>
 	<button on:click="submit(userText, endpoint)">Send</button>
+	{{#if loading}}
+		<div class="loading"></div>
+	{{/if}}
 {{/if}}
 
 <script>
 	import { request } from 'd3-request';
 
 	const submit = function submitFunc(text, endpoint) {
+		this.set({ loading: true });
 		request(endpoint)
 			.header('Content-Type', 'text/plain;charset=UTF-8')
 			.post(text, (err, xhr) => {
-				if (err) this.set({ submissionResponse: 'error 😥' });
-				else this.set({ submissionResponse: xhr.responseText });
+				if (err) this.set({ receipt: 'There was an error submitting the form. 😥' });
+				else this.set({ receipt: xhr.responseText });
 			});
 	};
 
@@ -24,8 +28,9 @@
 		},
 		data() {
 			return {
+				loading: false,
 				userText: '',
-				submissionResponse: '',
+				receipt: '',
 			};
 		},
 	};
@@ -33,23 +38,23 @@
 
 <style>
 	textarea, button {
-		display: block;
+		box-sizing: border-box;
 		margin: 1em 0;
 		border: 1px solid #ccc;
 		border-radius: 2px;
-		font-family: inherit;
-		font-size: inherit;
 	}
 
 	textarea {
+		display: block;
+		padding: 1em;
 		width: 100%;
-		max-width: 600px;
 		height: 50vh;
 		min-height: 10em;
 		font-size: 1.2em;
 	}
 
 	button {
+		display: inline-block;
 		background-color: #f4f4f4;
 		outline: none;
 	}
@@ -61,4 +66,26 @@
 	button:focus {
 		border-color: #666;
 	}
+
+	.loading {
+		display: inline-block;
+    margin-left: 1em;
+    border: 2px solid #ddd;
+    border-top: 2px solid blue;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+  }
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+  }
 </style>

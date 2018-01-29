@@ -10,21 +10,19 @@
 {{/if}}
 
 <script>
-  import { request } from 'd3-request';
-
-  const submit = function submitFunc(text, endpoint) {
-    this.set({ loading: true });
-    request(endpoint)
-      .header('Content-Type', 'text/plain;charset=UTF-8')
-      .post(text, (err, xhr) => {
-        if (err) this.set({ receipt: 'There was an error submitting the form. 😥' });
-        else this.set({ receipt: xhr.responseText });
-      });
-  };
-
   export default {
     methods: {
-      submit,
+      submit(text, endpoint) {
+        this.set({ loading: true });
+        fetch(endpoint, {
+          method: 'POST',
+          body: text,
+          headers: new Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }),
+        }).then(res => res.text()).then((receipt) => { this.set({ receipt }); })
+          .catch(() => {
+            this.set({ receipt: 'There was an error submitting the form. 😥' });
+          });
+      },
     },
     data() {
       return {

@@ -1,74 +1,74 @@
 {{#if receipt}}
-	<p>{{receipt}}</p>
+  <p>{{receipt}}</p>
 {{else}}
-	<h3>{{prompt}}</h3>
-	<textarea bind:value="userText"></textarea>
-	<button on:click="submit(userText, endpoint)">Send</button>
-	{{#if loading}}
-		<div class="loading"></div>
-	{{/if}}
+  <h3>{{prompt}}</h3>
+  <textarea bind:value="userText"></textarea>
+  <button on:click="submit(userText, endpoint)">Send</button>
+  {{#if loading}}
+    <div class="loading"></div>
+  {{/if}}
 {{/if}}
 
 <script>
-	import { request } from 'd3-request';
+  import { request } from 'd3-request';
 
-	const submit = function submitFunc(text, endpoint) {
-		this.set({ loading: true });
-		request(endpoint)
-			.header('Content-Type', 'text/plain;charset=UTF-8')
-			.post(text, (err, xhr) => {
-				if (err) this.set({ receipt: 'There was an error submitting the form. 😥' });
-				else this.set({ receipt: xhr.responseText });
-			});
-	};
+  const submit = function submitFunc(text, endpoint) {
+    this.set({ loading: true });
+    request(endpoint)
+      .header('Content-Type', 'text/plain;charset=UTF-8')
+      .post(text, (err, xhr) => {
+        if (err) this.set({ receipt: 'There was an error submitting the form. 😥' });
+        else this.set({ receipt: xhr.responseText });
+      });
+  };
 
-	export default {
-		methods: {
-			submit,
-		},
-		data() {
-			return {
-				loading: false,
-				userText: '',
-				receipt: '',
-			};
-		},
-	};
+  export default {
+    methods: {
+      submit,
+    },
+    data() {
+      return {
+        loading: false,
+        userText: '',
+        receipt: '',
+      };
+    },
+  };
 </script>
 
 <style>
-	textarea, button {
-		box-sizing: border-box;
-		margin: 1em 0;
-		border: 1px solid #ccc;
-		border-radius: 2px;
-	}
+  textarea, button {
+    box-sizing: border-box;
+    margin: 1em 0;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
 
-	textarea {
-		display: block;
-		padding: 1em;
-		width: 100%;
-		height: 50vh;
-		min-height: 10em;
-		font-size: 1.2em;
-	}
+  textarea {
+    display: block;
+    padding: 1em;
+    width: 100%;
+    height: 50vh;
+    min-height: 10em;
+    font-size: 1.2em;
+  }
 
-	button {
-		display: inline-block;
-		background-color: #f4f4f4;
-		outline: none;
-	}
+  button {
+    display: inline-block;
+    background-color: #f4f4f4;
+    outline: none;
+  }
 
-	button:active {
-		background-color: #ddd;
-	}
+  button:active {
+    background-color: #ddd;
+  }
 
-	button:focus {
-		border-color: #666;
-	}
+  button:focus {
+    border-color: #666;
+  }
 
-	.loading {
-		display: inline-block;
+  .loading {
+    display: inline-block;
     margin-left: 1em;
     border: 2px solid #ddd;
     border-top: 2px solid blue;
@@ -89,7 +89,7 @@
     100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
   }
 
-	p {
-		margin: 2em;
-	}
+  p {
+    margin: 2em;
+  }
 </style>
